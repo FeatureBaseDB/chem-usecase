@@ -10,12 +10,12 @@ We need to scan the whole data set to filter closest molecules, which inputs are
 For example, given a molecule with SMILE as "IC=C1/CCC(C(=O)O1)c2cccc3ccccc23" and threshold = 90%, returns set of molecules that have
 similarity >= 90%
 
-##Requirement
+##Requirements
 
 * RDKit Python: http://www.rdkit.org/docs/Install.html
 * ChemBL Dataset: ftp://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/releases/
 * Pilosa: https://github.com/pilosa/pilosa
-
+* Python-Pilosa: https://github.com/pilosa/python-pilosa
 
 
 ##Import dataset to pilosa
@@ -46,11 +46,26 @@ Export data from sdf or mysql to csv file, then import csv to mysql
     pilosactl import -d mol -f mole.n <csv_file_1>
     pilosactl import -d inverse-mol -f mole.n <csv_file_2>
     ```
-###Queries from pilosa
-*Retrieve molecule_ids that have similarity >= 90%
+    
+    
+### Queries from pilosa
 
-```
-python similar.py -s "I\C=C/1\CCC(C(=O)O1)c2cccc3ccccc23" -t 90
+* Retrieve molecule_ids that have similarity >= 90%. (Default db="mol", inverse-db="inverse-mol", frame="mole.n", hosts=127.0.0.1:15000)
 
-```
+    ```
+    python similar.py -s "I\C=C/1\CCC(C(=O)O1)c2cccc3ccccc23" -t 90
+    
+    ```
+
+* Retrive molecule_id from a smile
+
+    ```
+    python get_mol_fr_smile.py -s "I\C=C/1\CCC(C(=O)O1)c2cccc3ccccc23"
+    ```
+    
+* Benchmark running for thresholds = [50, 70, 75, 80, 85, 90]
+    
+     ```
+     python benchmarks -id 24
+    ```
     
