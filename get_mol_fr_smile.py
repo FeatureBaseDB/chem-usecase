@@ -32,7 +32,7 @@ def get_mole_id(smile, hosts, db, inverse_db, frame):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-s", dest="smile")
-    parser.add_argument("-host", dest="host", default="127.0.0.1:15000")
+    parser.add_argument("-host", dest="host", default="127.0.0.1:10101")
     parser.add_argument("-db", dest="db", default="mol")
     parser.add_argument("-inverse_db", dest="inverse_db", default="inverse-mol")
     parser.add_argument("-f", dest="frame", default="mole.n")
