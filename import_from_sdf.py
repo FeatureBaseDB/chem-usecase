@@ -3,19 +3,15 @@ import csv
 import sys
 from rdkit import Chem
 from rdkit.Chem import AllChem
-from pilosa import Client
 
-cluster = Client()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-file", dest="file")
     parser.add_argument("-p", dest="path")
-    parser.add_argument("-i", dest="inverse", default=False)
     args = parser.parse_args()
     path = args.path
     file_name = args.file
-    inverse = args.inverse
 
     if not path or not file_name:
         print "Expect path to sdf and csv file name"
@@ -37,9 +33,7 @@ if __name__ == "__main__":
                 error_bits.append(bitmap_id)
                 continue
             for bit in finger_print:
-                if inverse:
-                    writer.writerow({"row": bit, "col": bitmap_id})
-                else:
-                    writer.writerow({"row": bitmap_id, "col": bit})
+                writer.writerow({"row": bitmap_id, "col": bit})
             i += 1
+    print "Total chembl_id: %s" % i
     print "Total error bits: %s" % len(error_bits)
