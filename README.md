@@ -42,7 +42,7 @@ If you export data from mysql, it uses molregno in compound_structures as unique
         curl localhost:10101/index/mole -X POST -d '{"options": {"columnLabel": "position_id"}}'
         ```
   
-   * Create frame mol
+   * Create frame fingerprint
        ```bash
          curl localhost:10101/index/mole/frame/fingerprint -X POST -d '{"options": {"rowLabel": "chembl_id", "inverseEnabled": true, "cacheSize": 2000000}}'
         ```
