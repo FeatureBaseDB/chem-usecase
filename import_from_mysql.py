@@ -4,9 +4,6 @@ import sys
 import mysql.connector
 from rdkit import Chem
 from rdkit.Chem import AllChem
-from pilosa import Client
-
-cluster = Client()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -15,14 +12,12 @@ if __name__ == "__main__":
     parser.add_argument("-d", dest="db")
     parser.add_argument("-u", dest="user")
     parser.add_argument("-p", dest="password")
-    parser.add_argument("-i", dest="inverse", default=False)
     args = parser.parse_args()
     host = args.host
     db = args.db
     usr = args.user
     password = args.password
     file_name = args.file
-    inverse = args.inverse
 
     if not db or not file_name:
         print "Expect database name and csv file name"
@@ -47,9 +42,6 @@ if __name__ == "__main__":
                 m = Chem.MolFromSmiles(mol[1])
                 finger_print = list(AllChem.GetMorganFingerprintAsBitVect(m, 2, nBits=4096).GetOnBits())
                 for bit in finger_print:
-                    if inverse:
-                        writer.writerow({"row": bit, "col": bitmap_id})
-                    else:
                         writer.writerow({"row": bitmap_id, "col": bit})
                 i += 1
             except Exception as ex:
