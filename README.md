@@ -26,7 +26,7 @@ If you export data from mysql, it uses molregno in compound_structures as unique
         ```
         python import_from_sdf -p ~/Downloads/chembl_22.sdf -file id_fingerprint.csv 
         ```
-* * Export to csv from mysql:
+* Export to csv from mysql:
         ```
         python import_from_mysql -d chembl_22 -u root -file id_fingerprint.csv
         ```
